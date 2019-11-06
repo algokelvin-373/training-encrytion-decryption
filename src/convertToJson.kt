@@ -6,3 +6,9 @@ fun convertToJson(person: Person): String {
     val jsonPerson = gson.toJson(person)
     return jsonPerson
 }
+
+fun<T> convertToJson(data: T): String {
+    val gson = GsonBuilder().setPrettyPrinting().create()
+    val jsonPerson = gson.toJson(data)
+    return jsonPerson
+}

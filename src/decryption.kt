@@ -30,6 +30,5 @@ fun decryptionMethod(dataEncode: ByteArray, keyValue: ByteArray): String {
     val cipher = Cipher.getInstance("DESede/ECB/PKCS5Padding")
     cipher.init(Cipher.DECRYPT_MODE, key)
     val decVal = cipher.doFinal(dataEncode)
-    println(decVal)
     return String(decVal)
 }
