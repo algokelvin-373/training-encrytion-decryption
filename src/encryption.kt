@@ -1,3 +1,7 @@
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 /** Encryption Affine Cipher **/
 fun encryptionAffineCipher(word: String, keyOne: Int, keyTwo: Int): String {
@@ -11,4 +15,14 @@ fun encryptionAffineCipher(word: String, keyOne: Int, keyTwo: Int): String {
         println("$x -> ${word[x]} , ${word[x].toInt()} => $encryption")
     }
     return encryption
+}
+
+/** Encryption DESede Methods **/
+fun encryptionMethod(data: String, keyValue: ByteArray): ByteArray {
+    Security.addProvider(BouncyCastleProvider())
+    val key = SecretKeySpec(keyValue, "DESede")
+    val cipher = Cipher.getInstance("DESede/ECB/PKCS5Padding")
+    cipher.init(Cipher.ENCRYPT_MODE, key)
+    val encVal = cipher.doFinal(data.toByteArray(Charsets.UTF_8))
+    return encVal
 }

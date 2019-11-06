@@ -1,3 +1,8 @@
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
+
 fun decryptionAffineCipher(wordEncode: String, keyOne: Int, keyTwo: Int) {
     val decryption = ""
     val inverse = getInverseModulo(keyOne)
@@ -17,4 +22,14 @@ fun getInverseModulo(x: Int): Int {
         key++
     }
     return key
+}
+
+fun decryptionMethod(dataEncode: ByteArray, keyValue: ByteArray): String {
+    Security.addProvider(BouncyCastleProvider())
+    val key = SecretKeySpec(keyValue, "DESede")
+    val cipher = Cipher.getInstance("DESede/ECB/PKCS5Padding")
+    cipher.init(Cipher.DECRYPT_MODE, key)
+    val decVal = cipher.doFinal(dataEncode)
+    println(decVal)
+    return String(decVal)
 }
